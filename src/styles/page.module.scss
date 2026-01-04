@@ -1,4 +1,4 @@
-@use '../../index' as *;
+@use './variables' as *;
 
 .Wrapper {
   display: flex;
@@ -8,6 +8,7 @@
 
   .Title {
     @include font-black(64px);
+    text-align: center;
     color: white;
     letter-spacing: 9.6px;
 
@@ -62,12 +63,42 @@
       }
     }
   }
+}
 
-  .Loader {
-    text-align: center;
-    padding: 20px;
-    color: white;
-    font-size: 16px;
-    min-height: 50px;
+.Loader {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 20px;
+  color: white;
+  font-size: 16px;
+  min-height: 50px;
+}
+
+.FloatingButton {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+  padding-bottom: 4px;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
   }
 }

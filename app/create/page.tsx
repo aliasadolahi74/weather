@@ -1,49 +1,12 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { addCity } from '../../utils/db';
+import Link from 'next/link';
+import { createCity } from '@/actions';
 
-import React from 'react';
-
-const Create = () => {
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-
-  const [formData, setFormData] = useState({
-    city: '',
-    province: '',
-    lat: '',
-    lon: '',
-  });
-
-  const mutation = useMutation({
-    mutationFn: addCity,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['cities'] });
-      queryClient.invalidateQueries({ queryKey: ['weather-cities'] });
-      navigate('/');
-    },
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    mutation.mutate({
-      city: formData.city,
-      province: formData.province,
-      lat: parseFloat(formData.lat),
-      lon: parseFloat(formData.lon),
-    });
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
+export default function Create() {
   return (
     <div>
       <h1>Add City</h1>
       <form
-        onSubmit={handleSubmit}
+        action={createCity}
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -55,8 +18,6 @@ const Create = () => {
           type="text"
           name="city"
           placeholder="City name"
-          value={formData.city}
-          onChange={handleChange}
           required
           style={{
             padding: '12px',
@@ -69,8 +30,6 @@ const Create = () => {
           type="text"
           name="province"
           placeholder="Province"
-          value={formData.province}
-          onChange={handleChange}
           required
           style={{
             padding: '12px',
@@ -83,8 +42,6 @@ const Create = () => {
           type="number"
           name="lat"
           placeholder="Latitude"
-          value={formData.lat}
-          onChange={handleChange}
           step="any"
           required
           style={{
@@ -98,8 +55,6 @@ const Create = () => {
           type="number"
           name="lon"
           placeholder="Longitude"
-          value={formData.lon}
-          onChange={handleChange}
           step="any"
           required
           style={{
@@ -112,7 +67,6 @@ const Create = () => {
         <div style={{ display: 'flex', gap: '12px' }}>
           <button
             type="submit"
-            disabled={mutation.isPending}
             style={{
               padding: '12px 24px',
               borderRadius: '8px',
@@ -123,11 +77,10 @@ const Create = () => {
               fontSize: '16px',
             }}
           >
-            {mutation.isPending ? 'Adding...' : 'Add City'}
+            Add City
           </button>
-          <button
-            type="button"
-            onClick={() => navigate('/')}
+          <Link
+            href="/"
             style={{
               padding: '12px 24px',
               borderRadius: '8px',
@@ -136,19 +89,13 @@ const Create = () => {
               color: 'white',
               cursor: 'pointer',
               fontSize: '16px',
+              textDecoration: 'none',
             }}
           >
             Cancel
-          </button>
+          </Link>
         </div>
-        {mutation.isError && (
-          <p style={{ color: '#ff6b6b' }}>
-            Failed to add city. Please try again.
-          </p>
-        )}
       </form>
     </div>
   );
-};
-
-export default Create;
+}

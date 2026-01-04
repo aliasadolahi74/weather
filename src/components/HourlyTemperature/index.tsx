@@ -5,16 +5,14 @@ type HourlyTemperatureProps = {
   temperature: string;
 };
 
-const HourlyTemperature: React.FC<HourlyTemperatureProps> = ({
+export default function HourlyTemperature({
   temperature,
   hour,
-}) => {
+}: HourlyTemperatureProps) {
   return (
     <div className={styles.Container}>
       <div className={styles.Hour}>{hour}</div>
       <div className={styles.Temperature}>{temperature}</div>
     </div>
   );
-};
-
-export default HourlyTemperature;
+}

@@ -5,13 +5,11 @@ type AirFactorsProps = {
   value: string;
 };
 
-const AirFactor: React.FC<AirFactorsProps> = ({ value, label }) => {
+export default function AirFactor({ value, label }: AirFactorsProps) {
   return (
     <div className={styles.Container}>
       <div className={styles.Value}>{value}</div>
       <div className={styles.Label}>{label}</div>
     </div>
   );
-};
-
-export default AirFactor;
+}
