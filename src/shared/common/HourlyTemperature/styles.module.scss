@@ -1,0 +1,16 @@
+@use '../../../index.scss' as *;
+
+.Container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  .Hour {
+    @include font-bold(9px);
+  }
+
+  .Temperature {
+    @include font-regular(9px);
+  }
+}
