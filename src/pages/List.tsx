@@ -5,9 +5,7 @@ export default function List() {
     <div>
       <h1>List</h1>
       <Link to="/create">Create New</Link>
-      <div>
-        {/* List items will go here */}
-      </div>
+      <div>{/* List items will go here */}</div>a
     </div>
   );
 }
