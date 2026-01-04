@@ -1,4 +1,4 @@
-@use '../index.scss' as *;
+@use '../../index' as *;
 
 .Wrapper {
   display: flex;
@@ -10,13 +10,20 @@
     @include font-black(64px);
     color: white;
     letter-spacing: 9.6px;
+
+    @media only screen and (min-width: $min-desktop-width) {
+      @include font-black(220px);
+      letter-spacing: 33px;
+    }
   }
 
   .CardContainer {
     display: grid;
     grid-template-columns: 1fr;
+    place-items: center;
     row-gap: 27px;
     margin-top: 47px;
+    padding-bottom: 60px;
 
     & > div {
       @include shadow-default;
@@ -25,9 +32,11 @@
     & > div:nth-child(3n-2) {
       background-color: $color-gray;
     }
+
     & > div:nth-child(3n-1) {
       background-color: $color-orange;
     }
+
     & > div:nth-child(3n) {
       background-color: $color-blue;
     }
@@ -52,5 +61,13 @@
         background-color: $color-black;
       }
     }
+  }
+
+  .Loader {
+    text-align: center;
+    padding: 20px;
+    color: white;
+    font-size: 16px;
+    min-height: 50px;
   }
 }
