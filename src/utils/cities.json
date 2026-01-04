@@ -184,5 +184,11 @@
     "city": "یزد",
     "lat": 31.8972,
     "lon": 54.3675
+  },
+  {
+    "city": "New York",
+    "province": "New York",
+    "lat": 40.7128,
+    "lon": -74.006
   }
 ]

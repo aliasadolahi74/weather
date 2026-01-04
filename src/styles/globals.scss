@@ -1,0 +1,57 @@
+@use './variables' as *;
+
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+  position: relative;
+  color: white;
+
+  &:before {
+    content: '';
+    z-index: -1;
+    background: $gradient-bg;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: 0;
+  margin: 0;
+}
+
+main {
+  width: 100%;
+  padding: 60px 23.5px;
+
+  @media only screen and (min-width: $min-desktop-width) {
+    padding: 60px 64px;
+  }
+}
+
+.radius-15 {
+  @include radius(15px);
+}

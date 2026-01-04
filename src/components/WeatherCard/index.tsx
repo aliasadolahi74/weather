@@ -1,6 +1,4 @@
 import styles from './styles.module.scss';
-import * as React from 'react';
-import { useQuery } from '@tanstack/react-query';
 import AirFactor from '../AirFactor';
 import HourlyTemperature from '../HourlyTemperature';
 
@@ -14,28 +12,12 @@ export interface CardData {
   wind?: number;
   humidity?: number;
   rain?: number;
+  aqi?: number;
 }
 
 interface CardProps {
   data: CardData;
 }
-
-interface AirQualityResponse {
-  hourly: {
-    european_aqi: number[];
-  };
-}
-
-const fetchAqi = async (
-  lat: number,
-  lon: number
-): Promise<number | undefined> => {
-  const url = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&hourly=european_aqi&forecast_days=1`;
-  const res = await fetch(url);
-  const data: AirQualityResponse = await res.json();
-  const currentHour = new Date().getHours();
-  return data.hourly?.european_aqi?.[currentHour];
-};
 
 const getAqiLabel = (aqi?: number): string => {
   if (aqi === undefined) return '--';
@@ -47,20 +29,16 @@ const getAqiLabel = (aqi?: number): string => {
   return 'خطرناک';
 };
 
-const Card: React.FC<CardProps> = ({ data }) => {
-  const { data: aqi } = useQuery({
-    queryKey: ['aqi', data.lat, data.lon],
-    queryFn: () => fetchAqi(data.lat, data.lon),
-    staleTime: 1000 * 60 * 30, // 30 minutes
-  });
-
+export default function Card({ data }: CardProps) {
   const currentDate = new Date().toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
     year: 'numeric',
   });
 
-  const currentTemp = data.temperature ?? '--';
+  const currentTemp = data.temperature
+    ? data.temperature.toString().split('.')[0]
+    : '--';
   const hourlyData = data.hourlyTemperatures?.slice(0, 3) ?? [];
 
   return (
@@ -72,7 +50,7 @@ const Card: React.FC<CardProps> = ({ data }) => {
             <span className={styles.CityName}>
               {data.city}, {data.province}
             </span>
-            <span className={styles.AQI}>{getAqiLabel(aqi)}</span>
+            <span className={styles.AQI}>{getAqiLabel(data.aqi)}</span>
           </div>
           <span className={styles.Datetime}>{currentDate}</span>
         </div>
@@ -112,6 +90,4 @@ const Card: React.FC<CardProps> = ({ data }) => {
       </div>
     </div>
   );
-};
-
-export default Card;
+}
