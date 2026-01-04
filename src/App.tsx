@@ -3,7 +3,6 @@ import List from './pages/List';
 import Detail from './pages/Detail';
 import Create from './pages/Create';
 import Edit from './pages/Edit';
-import './App.scss';
 
 function App() {
   return (

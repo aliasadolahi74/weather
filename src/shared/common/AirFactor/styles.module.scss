@@ -1,0 +1,28 @@
+@use '../../../index.scss' as *;
+
+.Container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: center;
+
+  .Value {
+    @include font-semibold(10.5px);
+  }
+
+  .Label {
+    @include font-light(10.5px);
+  }
+
+  @media only screen and (min-width: $min-desktop-width) {
+    gap: 8px;
+
+    .Value {
+      @include font-semibold(14px);
+    }
+
+    .Label {
+      @include font-light(14px);
+    }
+  }
+}

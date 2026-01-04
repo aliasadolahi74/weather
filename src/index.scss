@@ -1,12 +1,13 @@
-:root {
-  // Color Palette
-  --color-gray: #b5b5b5;
-  --color-orange: #fda960;
-  --color-blue: #3d52ad;
-  --color-black: #1a1a1a;
-  --color-white: #ffffff;
-  --gradient-bg: linear-gradient(180deg, #000000 0%, #666666 100%);
+// Color Palette
+$color-gray: #b5b5b5;
+$color-orange: #fda960;
+$color-blue: #3d52ad;
+$color-black: #1a1a1a;
+$color-white: #ffffff;
+$gradient-bg: linear-gradient(180deg, #000000 0%, #666666 100%);
+$min-desktop-width: 397px;
 
+:root {
   font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -16,118 +17,83 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background: var(--gradient-bg);
+  max-height: 100vh;
+  position: relative;
   color: white;
+
+  &:before {
+    content: '';
+    z-index: -1;
+    background: $gradient-bg;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+  }
 }
 
-// Font Utility Classes
-.font-black-220 {
-  font-weight: 900;
-  font-size: 220px;
-  line-height: 100%;
-  letter-spacing: 33px;
-  text-align: center;
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: 0;
+  margin: 0;
 }
 
-.font-black-64 {
+#root {
+  width: 100%;
+  padding: 60px 23.5px;
+
+  @media only screen and (min-width: $min-desktop-width) {
+    padding: 60px 64px;
+  }
+}
+
+// ===== Font Mixins =====
+@mixin font-black($size) {
   font-weight: 900;
-  font-size: 64px;
+  font-size: $size;
   line-height: 100%;
   letter-spacing: 0;
-  text-align: center;
 }
 
-.font-black-48 {
-  font-weight: 900;
-  font-size: 48px;
-  line-height: 100%;
-  letter-spacing: 0;
-  text-align: center;
-}
-
-.font-bold-12 {
+@mixin font-bold($size) {
   font-weight: 700;
-  font-size: 12px;
+  font-size: $size;
   line-height: 100%;
   letter-spacing: 0;
 }
 
-.font-bold-9 {
-  font-weight: 700;
-  font-size: 9px;
-  line-height: 100%;
-  letter-spacing: 0;
-}
-
-.font-semibold-14 {
+@mixin font-semibold($size) {
   font-weight: 600;
-  font-size: 14px;
+  font-size: $size;
   line-height: 100%;
   letter-spacing: 0;
 }
 
-.font-semibold-10 {
-  font-weight: 600;
-  font-size: 10.5px;
-  line-height: 100%;
-  letter-spacing: 0;
-}
-
-.font-regular-12 {
+@mixin font-regular($size) {
   font-weight: 400;
-  font-size: 12px;
+  font-size: $size;
   line-height: 100%;
   letter-spacing: 0;
 }
 
-.font-regular-12-center {
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 100%;
-  letter-spacing: 0;
-  text-align: center;
-}
-
-.font-regular-9 {
-  font-weight: 400;
-  font-size: 9px;
-  line-height: 100%;
-  letter-spacing: 0;
-}
-
-.font-regular-9-center {
-  font-weight: 400;
-  font-size: 9px;
-  line-height: 100%;
-  letter-spacing: 0;
-  text-align: center;
-}
-
-.font-light-14 {
+@mixin font-light($size) {
   font-weight: 300;
-  font-size: 14px;
+  font-size: $size;
   line-height: 100%;
   letter-spacing: 0;
-  text-align: center;
-}
-
-.font-light-10 {
-  font-weight: 300;
-  font-size: 10.5px;
-  line-height: 100%;
-  letter-spacing: 0;
-  text-align: center;
-}
-
-// Box Shadow Utility
-.shadow-default {
-  box-shadow: 0 3px 8.33px 0 #00000040;
 }
 
 .shadow-card-desktop {
@@ -135,10 +101,18 @@ body {
 }
 
 // Border Radius Utilities
-.radius-15 {
-  border-radius: 15px;
+@mixin radius($value) {
+  border-radius: $value;
 }
 
-.radius-20 {
-  border-radius: 20px;
+@mixin shadow-default {
+  box-shadow: 0 3px 8.33px 0 #00000040;
+}
+
+@mixin shadow-card-desktop {
+  box-shadow: 0 4px 11.1px 0 #00000040;
+}
+
+.radius-15 {
+  @include radius(15px);
 }
